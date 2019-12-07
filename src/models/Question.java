@@ -21,7 +21,7 @@ public class Question {
         arrayList.add("goes often");
         arrayList.add("often goes");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("I think the weather ........... to bad tomorrow.");
         arrayList.add("shall");
@@ -30,7 +30,7 @@ public class Question {
         arrayList.add("could");
         arrayList.add("will");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("He ........... here a few minutes ago");
         arrayList.add("comes");
@@ -39,7 +39,7 @@ public class Question {
         arrayList.add("come");
         arrayList.add("came");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("Be quite! The students ........... the best.");
         arrayList.add("are going");
@@ -48,7 +48,7 @@ public class Question {
         arrayList.add("did");
         arrayList.add("are going");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("........... this film recently?");
         arrayList.add("Have you seen");
@@ -57,7 +57,7 @@ public class Question {
         arrayList.add("Are you seeing");
         arrayList.add("Have you seen");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("Mr Nick ........... books while his wife was cooking.");
         arrayList.add("was reading");
@@ -66,7 +66,7 @@ public class Question {
         arrayList.add("reads");
         arrayList.add("was reading");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("When I was a litle girl, I ........... swimming with my friends.");
         arrayList.add("go");
@@ -75,7 +75,7 @@ public class Question {
         arrayList.add("am going");
         arrayList.add("went");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("My father ........... 60 books so far.");
         arrayList.add("writes");
@@ -84,7 +84,7 @@ public class Question {
         arrayList.add("has written");
         arrayList.add("has written");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("I ........... my old friend at the airport tonight.");
         arrayList.add("will be meeting");
@@ -93,7 +93,7 @@ public class Question {
         arrayList.add("met");
         arrayList.add("am going to meet");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("I haven't talked to her ........... June.");
         arrayList.add("for");
@@ -102,7 +102,7 @@ public class Question {
         arrayList.add("ever");
         arrayList.add("since");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("This is the most interesting book I ...........");
         arrayList.add("read");
@@ -111,7 +111,7 @@ public class Question {
         arrayList.add("had read");
         arrayList.add("have ever read");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("He has't taught here ........... ages.");
         arrayList.add("since");
@@ -120,7 +120,7 @@ public class Question {
         arrayList.add("for");
         arrayList.add("for");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("At this time next week I ........... in this room.");
         arrayList.add("will sit");
@@ -129,7 +129,7 @@ public class Question {
         arrayList.add("will have been sitting");
         arrayList.add("will be sitting");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("After here ........... a scholarship, he studied aboard.");
         arrayList.add("wins");
@@ -138,7 +138,7 @@ public class Question {
         arrayList.add("is winning");
         arrayList.add("had gone");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
         /**/
         arrayList.add("When I entered the room, he ........... to music.");
         arrayList.add("was listening");
@@ -147,7 +147,7 @@ public class Question {
         arrayList.add("is listening");
         arrayList.add("was listening");
         questions.add(arrayList);
-        for(String s : arrayList) arrayList.remove(s);
+        arrayList = new ArrayList<>();
     }
 
     public ArrayList<ArrayList<String>> getQuestions() {

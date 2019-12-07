@@ -1,9 +1,15 @@
 package ui;
 
+import controller.ApiInterface;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.StringTokenizer;
 import javax.swing.*;
 
@@ -61,20 +67,25 @@ public class LoginForm extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         String email = tf1.getText().trim();
         String pwd = new String(p1.getPassword());
-        if(email.equals("") || pwd.equals("")){
-            l4.setText("PASSWORD, EMAIL EMPTY !!!");
-            l4.setVisible(true);
-            if(pwd.equals("")) p1.requestFocus();
-            if(email.equals("")) tf1.requestFocus();
-            return;
+        String r[] = new String[2];
+        Registry registry;
+        ApiInterface api;
+        try {
+            registry = LocateRegistry.getRegistry("localhost", 7799);
+            api = (ApiInterface) registry.lookup("data");
+            r = api.checkUser(email, pwd);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
         }
-        // Ky tu or: |
-        String regexEmail = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
-        if(email.matches(regexEmail) == false || !pwd.equals("empty")){
-            l4.setText("INVALID EMAIL, PASSWORD !!!");
+        System.out.println(r[0] + ": " + r[1]);
+        if(r[0].equals("1")){
+            setVisible(false);
+            new MainForm();
+        } else {
+            l4.setText(r[1]);
             l4.setVisible(true);
-            tf1.requestFocus();
-            return;
         }
 
 
