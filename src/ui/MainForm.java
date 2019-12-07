@@ -5,9 +5,7 @@ import models.Question;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -19,35 +17,60 @@ public class MainForm extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         for (int i = 0; i < 10; i++) {
-            if (actionEvent.getSource() == questions.get(i)) {
+            if ((JButton) actionEvent.getSource() == questions.get(i)) {
                 index = Integer.parseInt(questions.get(i).getText());
             }
+            questions.get(i).setEnabled(true);
         }
         if (actionEvent.getSource() == end) index = 10;
-        if (actionEvent.getSource() == next && index < 10) index++;
-        createUI();
         if (actionEvent.getSource() == next && index >= 10) countMark();
+        if (actionEvent.getSource() == next && index < 10) index++;
+
+        System.out.println(index);
+        createUI();
 
     }
 
     private void countMark() {
+        int count = 0;
+        for(int i = 0; i < 10; i++){
+            String t = "";
+            for(int j = 0; j < 4; j++){
+                if(mark.get(i)[j].isSelected()){
+                    t = mark.get(i)[j].getText();
+                }
+            }
+            if(answers.get(i).get(5).equals(t)) count++;
+        }
+        JOptionPane.showMessageDialog(this, "Bạn đã hoàn thành " + count + "/10");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(false);
+        System.exit(0);
+    }
+    private void requestClose(){
+        int c = JOptionPane.showConfirmDialog(this, "Xác nhận để thoát bài thi?");
+        if(c == JOptionPane.YES_OPTION){
+            countMark();
+        }
+
+
     }
 
     JLabel time;
     ArrayList<JButton> questions;
     ArrayList<ArrayList<String>> answers;
-    JRadioButton radioButtons[];
-    JLabel title;
+    JLabel title[];
     JButton next, end;
     int index;
+    ArrayList<JRadioButton[]> mark;
 
     public MainForm() {
         super("ONLINE EXAMINATION SYSTEM");
         time = new JLabel();
         questions = new ArrayList<>(10);
         answers = new ArrayList<>(10);
-        radioButtons = new JRadioButton[4];
-        title = new JLabel();
+        mark = new ArrayList<>(10);
+        title = new JLabel[10];
         index = 0;
         next = new JButton();
         end = new JButton("  Kết thúc ");
@@ -62,12 +85,16 @@ public class MainForm extends JFrame implements ActionListener {
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
+        setData();
         createUI();
         addEvent();
         new CountingTime().start();
     }
 
     public void createUI() {
+        getContentPane().removeAll();
+        getContentPane().validate();
+        getContentPane().repaint();
         if (index == 10) {
             endUI();
             return;
@@ -84,29 +111,31 @@ public class MainForm extends JFrame implements ActionListener {
 //        panelRight.setBackground(Color.lightGray);
         panelBottomLeft.setBackground(Color.lightGray);
 //        panelBottomRight.setBackground(Color.lightGray);
+
         panelLeft.setLayout(new FlowLayout(FlowLayout.LEADING));
         JLabel t = new JLabel("Chọn xem các câu hỏi khác: ");
         t.setFont(new Font("TimesRoman", Font.BOLD, 12));
         panelLeft.add(t);
         for (int i = 0; i < 10; i++) {
-            JButton jButton = new JButton(String.valueOf(i));
-            jButton.setSize(50, 50);
-            jButton.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-            questions.add(jButton);
+            questions.add(new JButton(String.valueOf(i)));
+            questions.get(i).setFont(new Font("TimesRoman", Font.PLAIN, 12));
             panelLeft.add(questions.get(i));
         }
+        questions.get(index).setEnabled(false);
         end.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         panelLeft.add(end);
+
         panelRight.setLayout(null);
         ButtonGroup buttonGroup = new ButtonGroup();
-        setData(index);
-        panelRight.add(title);
-        for (int i = 0; i < 4; i++) panelRight.add(radioButtons[i]);
-        for (int i = 0; i < 4; i++) buttonGroup.add(radioButtons[i]);
+        panelRight.add(title[index]);
+
+        for (int i = 0; i < 4; i++) panelRight.add(mark.get(index)[i]);
+        for (int i = 0; i < 4; i++) buttonGroup.add(mark.get(index)[i]);
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
         next.setText("Next");
         next.setFont(new Font("TimesRoman", Font.BOLD, 12));
         panelBottomRight.add(next);
+
         panelBottomLeft.setLayout(new FlowLayout(FlowLayout.CENTER));
         JLabel t1 = new JLabel("Thời gian còn lại:");
         t1.setFont(new Font("TimesRoman", Font.BOLD, 20));
@@ -121,12 +150,15 @@ public class MainForm extends JFrame implements ActionListener {
         add(panelBottomRight);
         setBounds(400, 150, 600, 400);
         setLayout(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
     }
 
     private void endUI() {
+        getContentPane().removeAll();
+        getContentPane().validate();
+        getContentPane().repaint();
         JPanel panelLeft = new JPanel();
         JPanel panelRight = new JPanel();
         JPanel panelBottomLeft = new JPanel();
@@ -144,10 +176,8 @@ public class MainForm extends JFrame implements ActionListener {
         t.setFont(new Font("TimesRoman", Font.BOLD, 12));
         panelLeft.add(t);
         for (int i = 0; i < 10; i++) {
-            JButton jButton = new JButton(String.valueOf(i));
-            jButton.setSize(50, 50);
-            jButton.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-            questions.add(jButton);
+            questions.add(new JButton(String.valueOf(i)));
+            questions.get(i).setFont(new Font("TimesRoman", Font.PLAIN, 12));
             panelLeft.add(questions.get(i));
         }
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -162,37 +192,50 @@ public class MainForm extends JFrame implements ActionListener {
 
 
         add(panelLeft);
-        add(panelRight);
+//        add(panelRight);
         add(panelBottomLeft);
         add(panelBottomRight);
+        setBounds(400, 150, 600, 400);
+        setLayout(null);
+        setResizable(false);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setVisible(true);
     }
 
     private void addEvent() {
-        for (int i = 0; i < 10; i++) questions.get(i).addActionListener(this);
+        for (int i = 0; i < 10; i++) {
+            questions.get(i).addActionListener(this);
+        }
         end.addActionListener(this);
         next.addActionListener(this);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                requestClose();
+            }
+        });
+
 
     }
 
-    private void setData(int i) {
-        index = i;
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList = answers.get(index);
-        title.setText(arrayList.get(0));
-        title.setFont(new Font("TimesRoman", Font.BOLD, 12));
-        radioButtons[0] = new JRadioButton(arrayList.get(1));
-        radioButtons[1] = new JRadioButton(arrayList.get(2));
-        radioButtons[2] = new JRadioButton(arrayList.get(3));
-        radioButtons[3] = new JRadioButton(arrayList.get(4));
-        title.setBounds(10, 10, 360, 50);
-        for (int j = 0; j < 4; j++) {
-            radioButtons[j].setBounds(50, 60 + 40 * j, 300, 20);
-            radioButtons[j].setFont(new Font("TimesRoman", Font.ITALIC, 12));
+    private void setData() {
+        for(int i = 0; i < answers.size(); i++){
+            title[i] = new JLabel();
+            title[i].setText(answers.get(i).get(0));
+            title[i].setFont(new Font("TimesRoman", Font.BOLD, 12));
+            title[i].setBounds(10, 10, 360, 50);
+            JRadioButton radioButton[] = new JRadioButton[4];
+            for (int j = 0; j < 4; j++) {
+                radioButton[j] = new JRadioButton(answers.get(i).get(j + 1));
+                radioButton[j].setBounds(50, 60 + 40 * j, 300, 20);
+                radioButton[j].setFont(new Font("TimesRoman", Font.ITALIC, 12));
+            }
+            mark.add(radioButton);
         }
     }
 
     class CountingTime extends Thread {
-        private int cTime = 15 * 60;
+        private int cTime = 1 * 60;
 
         @Override
         public void run() {
@@ -209,6 +252,7 @@ public class MainForm extends JFrame implements ActionListener {
                     e.printStackTrace();
                 }
             }
+            countMark();
 
         }
     }

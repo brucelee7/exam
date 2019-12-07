@@ -56,7 +56,6 @@ public class LoginForm extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
-
     }
 
     public static void main(String[] args) {
