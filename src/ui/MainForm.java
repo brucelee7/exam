@@ -26,7 +26,6 @@ public class MainForm extends JFrame implements ActionListener {
         if (actionEvent.getSource() == next && index >= 10) countMark();
         if (actionEvent.getSource() == next && index < 10) index++;
 
-        System.out.println(index);
         createUI();
 
     }
@@ -43,6 +42,11 @@ public class MainForm extends JFrame implements ActionListener {
             if(answers.get(i).get(5).equals(t)) count++;
         }
         JOptionPane.showMessageDialog(this, "Bạn đã hoàn thành " + count + "/10");
+        try {
+            api.showMark(token);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(false);
         System.exit(0);
@@ -63,8 +67,10 @@ public class MainForm extends JFrame implements ActionListener {
     JButton next, end;
     int index;
     ArrayList<JRadioButton[]> mark;
+    ApiInterface api;
+    static String token = "";
 
-    public MainForm() {
+    public MainForm(String user) {
         super("ONLINE EXAMINATION SYSTEM");
         time = new JLabel();
         questions = new ArrayList<>(10);
@@ -74,8 +80,8 @@ public class MainForm extends JFrame implements ActionListener {
         index = 0;
         next = new JButton();
         end = new JButton("  Kết thúc ");
+        token = user;
         Registry registry;
-        ApiInterface api;
         try {
             registry = LocateRegistry.getRegistry("localhost", 7799);
             api = (ApiInterface)registry.lookup("data");
@@ -235,7 +241,7 @@ public class MainForm extends JFrame implements ActionListener {
     }
 
     class CountingTime extends Thread {
-        private int cTime = 1 * 60;
+        private int cTime = 15 * 60;
 
         @Override
         public void run() {
@@ -258,7 +264,7 @@ public class MainForm extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new MainForm();
+        new MainForm("");
     }
 
 }

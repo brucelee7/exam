@@ -9,9 +9,13 @@ import java.util.Date;
 import java.util.Random;
 
 public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
+    private ArrayList<String> info;
 
     protected ApiImpl() throws RemoteException {
+        super();
+        info = new ArrayList<>();
     }
+    int count = 0;
 
     @Override
     public ArrayList<ArrayList<String>> getQuestions() throws RemoteException {
@@ -37,7 +41,6 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
     @Override
     public String[] checkUser(String user, String pass) throws RemoteException {
         String r[] = new String[2];
-        ArrayList<String> check = new ArrayList<>();
         if(user.equals("") || pass.equals("")){
             r[0] = "0";
             r[1] = "PASSWORD, EMAIL EMPTY !!!";
@@ -50,13 +53,23 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
             r[1] = "INVALID EMAIL, PASSWORD !!!";
             return r;
         }
-        if(check.contains(user)){
+        if(info.contains(user)){
             r[0] = "0";
             r[1] = "CANNOT ACCESS THIS USER !!!";
+            return r;
         }
         r[0] = "1";
         r[1] = "";
-        check.add(user);
+        System.out.println(user + " đã bắt đầu làm bài !!!");
+        info.add(user);
         return r;
+    }
+
+    @Override
+    public void showMark(String user) throws RemoteException {
+        count++;
+        System.out.println("Đã nộp bài: " + count);
+        if(info.size() == 0) count = 0;
+
     }
 }

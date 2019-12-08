@@ -78,10 +78,9 @@ public class LoginForm extends JFrame implements ActionListener {
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
-        System.out.println(r[0] + ": " + r[1]);
         if(r[0].equals("1")){
             setVisible(false);
-            new MainForm();
+            new MainForm(email);
         } else {
             l4.setText(r[1]);
             l4.setVisible(true);
