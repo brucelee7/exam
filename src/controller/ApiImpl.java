@@ -71,7 +71,6 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
         count++;
         System.out.println("Đã nộp bài: " + count);
         users.remove(user);
-        if (users.size() == 0) count = 0;
 
     }
 }
