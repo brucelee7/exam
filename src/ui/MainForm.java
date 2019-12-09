@@ -14,87 +14,55 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MainForm extends JFrame implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        for (int i = 0; i < 10; i++) {
-            if ((JButton) actionEvent.getSource() == questions.get(i)) {
-                index = Integer.parseInt(questions.get(i).getText());
-            }
-            questions.get(i).setEnabled(true);
-        }
-        if (actionEvent.getSource() == end) index = 10;
-        if (actionEvent.getSource() == next && index >= 10) countMark();
-        if (actionEvent.getSource() == next && index < 10) index++;
-
-        createUI();
-
-    }
-
-    private void countMark() {
-        int count = 0;
-        for(int i = 0; i < 10; i++){
-            String t = "";
-            for(int j = 0; j < 4; j++){
-                if(mark.get(i)[j].isSelected()){
-                    t = mark.get(i)[j].getText();
-                }
-            }
-            if(answers.get(i).get(5).equals(t)) count++;
-        }
-        JOptionPane.showMessageDialog(this, "Bạn đã hoàn thành " + count + "/10");
-        try {
-            api.showMark(token);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(false);
-        System.exit(0);
-    }
-    private void requestClose(){
-        int c = JOptionPane.showConfirmDialog(this, "Xác nhận để thoát bài thi?");
-        if(c == JOptionPane.YES_OPTION){
-            countMark();
-        }
-
-
-    }
-
-    JLabel time;
-    ArrayList<JButton> questions;
-    ArrayList<ArrayList<String>> answers;
-    JLabel title[];
-    JButton next, end;
+    JLabel lbTime;
+    ArrayList<JButton> btnSelectQuestion;
+    ArrayList<ArrayList<String>> examQuestions;
+    JLabel lbQuestion[];
+    ArrayList<JRadioButton[]> rbtnAnswerQuestion;
+    JButton btnNext, btnEnd;
     int index;
-    ArrayList<JRadioButton[]> mark;
     ApiInterface api;
     static String token = "";
 
     public MainForm(String user) {
         super("ONLINE EXAMINATION SYSTEM");
-        time = new JLabel();
-        questions = new ArrayList<>(10);
-        answers = new ArrayList<>(10);
-        mark = new ArrayList<>(10);
-        title = new JLabel[10];
+        lbTime = new JLabel();
+        btnSelectQuestion = new ArrayList<>(10);
+        examQuestions = new ArrayList<>(10);
+        rbtnAnswerQuestion = new ArrayList<>(10);
+        lbQuestion = new JLabel[10];
         index = 0;
-        next = new JButton();
-        end = new JButton("  Kết thúc ");
+        btnNext = new JButton();
+        btnEnd = new JButton("  Kết thúc ");
         token = user;
         Registry registry;
         try {
             registry = LocateRegistry.getRegistry("localhost", 7799);
             api = (ApiInterface)registry.lookup("data");
-            answers = api.getQuestions();
+            examQuestions = api.getExamQuestions();
         } catch (RemoteException e) {
-            e.printStackTrace();
         } catch (NotBoundException e) {
-            e.printStackTrace();
         }
-        setData();
+        initData();
         createUI();
         addEvent();
         new CountingTime().start();
+    }
+
+    private void initData() {
+        for(int i = 0; i < examQuestions.size(); i++){
+            lbQuestion[i] = new JLabel();
+            lbQuestion[i].setText(examQuestions.get(i).get(0));
+            lbQuestion[i].setFont(new Font("TimesRoman", Font.BOLD, 12));
+            lbQuestion[i].setBounds(10, 10, 360, 50);
+            JRadioButton radioButton[] = new JRadioButton[4];
+            for (int j = 0; j < 4; j++) {
+                radioButton[j] = new JRadioButton(examQuestions.get(i).get(j + 1));
+                radioButton[j].setBounds(50, 60 + 40 * j, 300, 20);
+                radioButton[j].setFont(new Font("TimesRoman", Font.ITALIC, 12));
+            }
+            rbtnAnswerQuestion.add(radioButton);
+        }
     }
 
     public void createUI() {
@@ -123,31 +91,31 @@ public class MainForm extends JFrame implements ActionListener {
         t.setFont(new Font("TimesRoman", Font.BOLD, 12));
         panelLeft.add(t);
         for (int i = 0; i < 10; i++) {
-            questions.add(new JButton(String.valueOf(i)));
-            questions.get(i).setFont(new Font("TimesRoman", Font.PLAIN, 12));
-            panelLeft.add(questions.get(i));
+            btnSelectQuestion.add(new JButton(String.valueOf(i)));
+            btnSelectQuestion.get(i).setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            panelLeft.add(btnSelectQuestion.get(i));
         }
-        questions.get(index).setEnabled(false);
-        end.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-        panelLeft.add(end);
+        btnSelectQuestion.get(index).setEnabled(false);
+        btnEnd.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+        panelLeft.add(btnEnd);
 
         panelRight.setLayout(null);
         ButtonGroup buttonGroup = new ButtonGroup();
-        panelRight.add(title[index]);
+        panelRight.add(lbQuestion[index]);
 
-        for (int i = 0; i < 4; i++) panelRight.add(mark.get(index)[i]);
-        for (int i = 0; i < 4; i++) buttonGroup.add(mark.get(index)[i]);
+        for (int i = 0; i < 4; i++) panelRight.add(rbtnAnswerQuestion.get(index)[i]);
+        for (int i = 0; i < 4; i++) buttonGroup.add(rbtnAnswerQuestion.get(index)[i]);
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        next.setText("Next");
-        next.setFont(new Font("TimesRoman", Font.BOLD, 12));
-        panelBottomRight.add(next);
+        btnNext.setText("Next");
+        btnNext.setFont(new Font("TimesRoman", Font.BOLD, 12));
+        panelBottomRight.add(btnNext);
 
         panelBottomLeft.setLayout(new FlowLayout(FlowLayout.CENTER));
         JLabel t1 = new JLabel("Thời gian còn lại:");
         t1.setFont(new Font("TimesRoman", Font.BOLD, 20));
-        time.setFont(new Font("TimesRoman", Font.BOLD, 20));
+        lbTime.setFont(new Font("TimesRoman", Font.BOLD, 20));
         panelBottomLeft.add(t1);
-        panelBottomLeft.add(time);
+        panelBottomLeft.add(lbTime);
 
 
         add(panelLeft);
@@ -182,19 +150,19 @@ public class MainForm extends JFrame implements ActionListener {
         t.setFont(new Font("TimesRoman", Font.BOLD, 12));
         panelLeft.add(t);
         for (int i = 0; i < 10; i++) {
-            questions.add(new JButton(String.valueOf(i)));
-            questions.get(i).setFont(new Font("TimesRoman", Font.PLAIN, 12));
-            panelLeft.add(questions.get(i));
+            btnSelectQuestion.add(new JButton(String.valueOf(i)));
+            btnSelectQuestion.get(i).setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            panelLeft.add(btnSelectQuestion.get(i));
         }
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.CENTER));
-        next.setText("Nộp bài");
-        next.setFont(new Font("TimesRoman", Font.BOLD, 12));
-        panelBottomRight.add(next);
+        btnNext.setText("Nộp bài");
+        btnNext.setFont(new Font("TimesRoman", Font.BOLD, 12));
+        panelBottomRight.add(btnNext);
         JLabel t1 = new JLabel("Thời gian còn lại:");
         t1.setFont(new Font("TimesRoman", Font.BOLD, 20));
-        time.setFont(new Font("TimesRoman", Font.BOLD, 20));
+        lbTime.setFont(new Font("TimesRoman", Font.BOLD, 20));
         panelBottomLeft.add(t1);
-        panelBottomLeft.add(time);
+        panelBottomLeft.add(lbTime);
 
 
         add(panelLeft);
@@ -210,35 +178,61 @@ public class MainForm extends JFrame implements ActionListener {
 
     private void addEvent() {
         for (int i = 0; i < 10; i++) {
-            questions.get(i).addActionListener(this);
+            btnSelectQuestion.get(i).addActionListener(this);
         }
-        end.addActionListener(this);
-        next.addActionListener(this);
+        btnEnd.addActionListener(this);
+        btnNext.addActionListener(this);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 requestClose();
             }
         });
-
-
     }
 
-    private void setData() {
-        for(int i = 0; i < answers.size(); i++){
-            title[i] = new JLabel();
-            title[i].setText(answers.get(i).get(0));
-            title[i].setFont(new Font("TimesRoman", Font.BOLD, 12));
-            title[i].setBounds(10, 10, 360, 50);
-            JRadioButton radioButton[] = new JRadioButton[4];
-            for (int j = 0; j < 4; j++) {
-                radioButton[j] = new JRadioButton(answers.get(i).get(j + 1));
-                radioButton[j].setBounds(50, 60 + 40 * j, 300, 20);
-                radioButton[j].setFont(new Font("TimesRoman", Font.ITALIC, 12));
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        for (int i = 0; i < 10; i++) {
+            if (actionEvent.getSource() == btnSelectQuestion.get(i)) {
+                index = Integer.parseInt(btnSelectQuestion.get(i).getText());
             }
-            mark.add(radioButton);
+            btnSelectQuestion.get(i).setEnabled(true);
         }
+        if (actionEvent.getSource() == btnEnd) index = 10;
+        if (actionEvent.getSource() == btnNext && index >= 10) countMark();
+        if (actionEvent.getSource() == btnNext && index < 10) index++;
+        createUI();
     }
+
+    private void countMark() {
+        int countMark = 0;
+        for(int i = 0; i < examQuestions.size(); i++){
+            String t = "";
+            for(int j = 0; j < rbtnAnswerQuestion.size(); j++){
+                if(rbtnAnswerQuestion.get(i)[j].isSelected()){
+                    t = rbtnAnswerQuestion.get(i)[j].getText();
+                }
+            }
+            if(examQuestions.get(i).get(5).equals(t)) countMark++;
+        }
+        JOptionPane.showMessageDialog(this, "Bạn đã hoàn thành " + countMark + "/10");
+        try {
+            api.showStatistic(token);
+        } catch (RemoteException e) {
+        }
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(false);
+        System.exit(0);
+    }
+    private void requestClose(){
+        int c = JOptionPane.showConfirmDialog(this, "Xác nhận để thoát bài thi?");
+        if(c == JOptionPane.YES_OPTION){
+            countMark();
+        }
+
+
+    }
+
 
     class CountingTime extends Thread {
         private int cTime = 15 * 60;
@@ -251,7 +245,7 @@ public class MainForm extends JFrame implements ActionListener {
                     if (cTime % 60 == 0) tTime += "00";
                     else if (cTime % 60 < 10) tTime += "0" + cTime % 60;
                     else tTime += cTime % 60;
-                    time.setText(tTime);
+                    lbTime.setText(tTime);
                     sleep(1000);
                     cTime--;
                 } catch (InterruptedException e) {

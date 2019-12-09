@@ -3,9 +3,9 @@ package models;
 import java.util.ArrayList;
 
 public class Question {
-    ArrayList<ArrayList<String>> questions;
+    ArrayList<ArrayList<String>> examQuestions;
     public Question () {
-        questions = new ArrayList<>();
+        examQuestions = new ArrayList<>();
         createQuestion();
     }
     /*
@@ -20,7 +20,7 @@ public class Question {
         arrayList.add("often goes");
         arrayList.add("goes often");
         arrayList.add("often goes");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("I think the weather ........... to bad tomorrow.");
@@ -29,7 +29,7 @@ public class Question {
         arrayList.add("is going");
         arrayList.add("could");
         arrayList.add("will");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("He ........... here a few minutes ago");
@@ -38,7 +38,7 @@ public class Question {
         arrayList.add("has come");
         arrayList.add("come");
         arrayList.add("came");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("Be quite! The students ........... the best.");
@@ -47,7 +47,7 @@ public class Question {
         arrayList.add("are going to do");
         arrayList.add("did");
         arrayList.add("are going");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("........... this film recently?");
@@ -56,7 +56,7 @@ public class Question {
         arrayList.add("Do you see");
         arrayList.add("Are you seeing");
         arrayList.add("Have you seen");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("Mr Nick ........... books while his wife was cooking.");
@@ -65,7 +65,7 @@ public class Question {
         arrayList.add("has read");
         arrayList.add("reads");
         arrayList.add("was reading");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("When I was a litle girl, I ........... swimming with my friends.");
@@ -74,7 +74,7 @@ public class Question {
         arrayList.add("was going");
         arrayList.add("am going");
         arrayList.add("went");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("My father ........... 60 books so far.");
@@ -83,7 +83,7 @@ public class Question {
         arrayList.add("had written");
         arrayList.add("has written");
         arrayList.add("has written");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("I ........... my old friend at the airport tonight.");
@@ -92,7 +92,7 @@ public class Question {
         arrayList.add("am going to meet");
         arrayList.add("met");
         arrayList.add("am going to meet");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("I haven't talked to her ........... June.");
@@ -101,7 +101,7 @@ public class Question {
         arrayList.add("since");
         arrayList.add("ever");
         arrayList.add("since");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("This is the most interesting book I ...........");
@@ -110,7 +110,7 @@ public class Question {
         arrayList.add("ever have read");
         arrayList.add("had read");
         arrayList.add("have ever read");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("He has't taught here ........... ages.");
@@ -119,7 +119,7 @@ public class Question {
         arrayList.add("on");
         arrayList.add("for");
         arrayList.add("for");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("At this time next week I ........... in this room.");
@@ -128,7 +128,7 @@ public class Question {
         arrayList.add("will be sitting");
         arrayList.add("will have been sitting");
         arrayList.add("will be sitting");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("After here ........... a scholarship, he studied aboard.");
@@ -137,7 +137,7 @@ public class Question {
         arrayList.add("had gone");
         arrayList.add("is winning");
         arrayList.add("had gone");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
         /**/
         arrayList.add("When I entered the room, he ........... to music.");
@@ -146,15 +146,15 @@ public class Question {
         arrayList.add("has listened");
         arrayList.add("is listening");
         arrayList.add("was listening");
-        questions.add(arrayList);
+        examQuestions.add(arrayList);
         arrayList = new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<String>> getQuestions() {
-        return questions;
+    public ArrayList<ArrayList<String>> getExamQuestions() {
+        return examQuestions;
     }
 
-    public void setQuestions(ArrayList<ArrayList<String>> questions) {
-        this.questions = questions;
+    public void setExamQuestions(ArrayList<ArrayList<String>> examQuestions) {
+        this.examQuestions = examQuestions;
     }
 }
