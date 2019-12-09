@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ffc3547d-d7c9-4d61-bfa8-258f590ba2c4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ApiImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ApiImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/LoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LoginForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/MainForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/MainForm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +36,7 @@
       <recent name="models" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LoginForm">
+  <component name="RunManager" selected="Application.MainForm">
     <configuration name="LoginForm" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.LoginForm" />
       <module name="Exam" />
@@ -86,9 +83,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LoginForm" />
-        <item itemvalue="Application.RMIServer" />
         <item itemvalue="Application.MainForm" />
+        <item itemvalue="Application.RMIServer" />
+        <item itemvalue="Application.LoginForm" />
       </list>
     </recent_temporary>
   </component>
@@ -134,22 +131,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="463" y="110" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1575624345964" />
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1575811251144">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1575904815640">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1575811251144" />
-    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1575811251143">
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1575904815640" />
+    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1575904815640">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1575811251143" />
-    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1575811251143">
+    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1575904815640" />
+    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1575904815640">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1575811251143" />
-    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1575811251144">
+    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1575904815640" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1575904815640">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1575811251144" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1575904815640" />
     <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1575887346421">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

@@ -1,7 +1,6 @@
 package ui;
 
 import controller.ApiInterface;
-import models.Question;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +10,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainForm extends JFrame implements ActionListener {
     JLabel lbTime;
@@ -80,7 +78,7 @@ public class MainForm extends JFrame implements ActionListener {
         panelLeft.setBounds(5, 5, 200, 200);
         panelRight.setBounds(210, 5, 370, 300);
         panelBottomLeft.setBounds(5, 210, 200, 145);
-
+        panelBottomRight.setBounds(210, 310, 370, 45);
 
         // Giao diện phía các ô chọn câu hỏi khác
         panelLeft.setBackground(Color.lightGray);
@@ -103,6 +101,7 @@ public class MainForm extends JFrame implements ActionListener {
         panelRight.add(lbQuestion[index]);
         for (int i = 0; i < 4; i++) panelRight.add(rbtnAnswerQuestion.get(index)[i]);
         for (int i = 0; i < 4; i++) buttonGroup.add(rbtnAnswerQuestion.get(index)[i]);
+
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
         btnNext.setText("Next");
         btnNext.setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -141,7 +140,7 @@ public class MainForm extends JFrame implements ActionListener {
         panelBottomRight.setBounds(210, 210, 370, 45);
 
 
-        panelBottomLeft.setBackground(Color.lightGray);
+
         // Giao diện chọn câu hỏi khác
         panelLeft.setBackground(Color.lightGray);
         panelLeft.setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -155,6 +154,7 @@ public class MainForm extends JFrame implements ActionListener {
         }
         // Kết thúc giao diện
         // Giao diện nộp bài
+        panelBottomLeft.setBackground(Color.lightGray);
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.CENTER));
         btnNext.setText("Nộp bài");
         btnNext.setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -211,7 +211,7 @@ public class MainForm extends JFrame implements ActionListener {
         int countMark = 0;
         for (int i = 0; i < examQuestions.size(); i++) {
             String t = "";
-            for (int j = 0; j < rbtnAnswerQuestion.size(); j++) {
+            for (int j = 0; j < 4; j++) {
                 if (rbtnAnswerQuestion.get(i)[j].isSelected()) {
                     t = rbtnAnswerQuestion.get(i)[j].getText();
                 }
