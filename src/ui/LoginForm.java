@@ -18,6 +18,7 @@ public class LoginForm extends JFrame implements ActionListener {
     JTextField tfEmail;
     JButton btnLogin;
     JPasswordField tfPassword;
+
     LoginForm() {
         super("ONLINE EXAMINATION SYSTEM");
         lbLogin = new JLabel("USER LOGIN");
@@ -78,7 +79,7 @@ public class LoginForm extends JFrame implements ActionListener {
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
-        if(tmp[0].equals("1")){
+        if (tmp[0].equals("1")) {
             setVisible(false);
             new MainForm(email);
         } else {

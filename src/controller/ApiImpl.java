@@ -15,6 +15,7 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
         super();
         users = new ArrayList<>();
     }
+
     int count = 0;
 
     @Override
@@ -25,7 +26,7 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
         Random rand = new Random();
         int c;
         int s = examQuestions.size();
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             c = rand.nextInt(15 - i);
             questions.add(examQuestions.get(c));
             // Xóa để không chọn lặp lại câu hỏi
@@ -37,7 +38,7 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
     @Override
     public String[] checkUser(String email, String pass) throws RemoteException {
         String res[] = new String[2];
-        if(email.equals("") || pass.equals("")){
+        if (email.equals("") || pass.equals("")) {
             res[0] = "0";
             res[1] = "PASSWORD, EMAIL EMPTY !!!";
             return res;
@@ -48,12 +49,12 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
         // B tương ứng: ([a-zA-Z0-9_\-\.]+) -> Phải có các ký tự như trên
         // C tương ứng: (\\.([a-zA-Z]{2,5})){1,3}$ ->
         // Phải có các ký tự ., a->z, A->Z ít nhất 2 - 5 ký tự, lặp lại 1 - 3 lần
-        if(email.matches(regexEmail) == false || !pass.equals("empty")){
+        if (email.matches(regexEmail) == false || !pass.equals("empty")) {
             res[0] = "0";
             res[1] = "INVALID EMAIL, PASSWORD !!!";
             return res;
         }
-        if(users.contains(email)){
+        if (users.contains(email)) {
             res[0] = "0";
             res[1] = "CANNOT ACCESS THIS USER !!!";
             return res;
@@ -70,7 +71,7 @@ public class ApiImpl extends UnicastRemoteObject implements ApiInterface {
         count++;
         System.out.println("Đã nộp bài: " + count);
         users.remove(user);
-        if(users.size() == 0) count = 0;
+        if (users.size() == 0) count = 0;
 
     }
 }

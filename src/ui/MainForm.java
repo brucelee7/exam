@@ -38,7 +38,7 @@ public class MainForm extends JFrame implements ActionListener {
         Registry registry;
         try {
             registry = LocateRegistry.getRegistry("localhost", 7799);
-            api = (ApiInterface)registry.lookup("data");
+            api = (ApiInterface) registry.lookup("data");
             examQuestions = api.getExamQuestions();
         } catch (RemoteException e) {
         } catch (NotBoundException e) {
@@ -50,7 +50,7 @@ public class MainForm extends JFrame implements ActionListener {
     }
 
     private void initData() {
-        for(int i = 0; i < examQuestions.size(); i++){
+        for (int i = 0; i < examQuestions.size(); i++) {
             lbQuestion[i] = new JLabel();
             lbQuestion[i].setText(examQuestions.get(i).get(0));
             lbQuestion[i].setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -80,12 +80,10 @@ public class MainForm extends JFrame implements ActionListener {
         panelLeft.setBounds(5, 5, 200, 200);
         panelRight.setBounds(210, 5, 370, 300);
         panelBottomLeft.setBounds(5, 210, 200, 145);
-        panelBottomRight.setBounds(210, 310, 370, 45);
-        panelLeft.setBackground(Color.lightGray);
-//        panelRight.setBackground(Color.lightGray);
-        panelBottomLeft.setBackground(Color.lightGray);
-//        panelBottomRight.setBackground(Color.lightGray);
 
+
+        // Giao diện phía các ô chọn câu hỏi khác
+        panelLeft.setBackground(Color.lightGray);
         panelLeft.setLayout(new FlowLayout(FlowLayout.LEADING));
         JLabel t = new JLabel("Chọn xem các câu hỏi khác: ");
         t.setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -98,25 +96,27 @@ public class MainForm extends JFrame implements ActionListener {
         btnSelectQuestion.get(index).setEnabled(false);
         btnEnd.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         panelLeft.add(btnEnd);
-
+        // Kết thúc giao diện
+        // Giao diện câu hỏi và chọn câu trả lời
         panelRight.setLayout(null);
         ButtonGroup buttonGroup = new ButtonGroup();
         panelRight.add(lbQuestion[index]);
-
         for (int i = 0; i < 4; i++) panelRight.add(rbtnAnswerQuestion.get(index)[i]);
         for (int i = 0; i < 4; i++) buttonGroup.add(rbtnAnswerQuestion.get(index)[i]);
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
         btnNext.setText("Next");
         btnNext.setFont(new Font("TimesRoman", Font.BOLD, 12));
         panelBottomRight.add(btnNext);
-
+        // Kết thúc giao diện
+        // Giao diện thời gian
+        panelBottomLeft.setBackground(Color.lightGray);
         panelBottomLeft.setLayout(new FlowLayout(FlowLayout.CENTER));
         JLabel t1 = new JLabel("Thời gian còn lại:");
         t1.setFont(new Font("TimesRoman", Font.BOLD, 20));
         lbTime.setFont(new Font("TimesRoman", Font.BOLD, 20));
         panelBottomLeft.add(t1);
         panelBottomLeft.add(lbTime);
-
+        // Kết thúc giao diện
 
         add(panelLeft);
         add(panelRight);
@@ -134,17 +134,16 @@ public class MainForm extends JFrame implements ActionListener {
         getContentPane().validate();
         getContentPane().repaint();
         JPanel panelLeft = new JPanel();
-        JPanel panelRight = new JPanel();
         JPanel panelBottomLeft = new JPanel();
         JPanel panelBottomRight = new JPanel();
         panelLeft.setBounds(5, 5, 200, 200);
-//        panelRight.setBounds(210, 5, 370, 300);
         panelBottomLeft.setBounds(5, 210, 200, 145);
         panelBottomRight.setBounds(210, 210, 370, 45);
-        panelLeft.setBackground(Color.lightGray);
-//        panelRight.setBackground(Color.lightGray);
+
+
         panelBottomLeft.setBackground(Color.lightGray);
-//        panelBottomRight.setBackground(Color.lightGray);
+        // Giao diện chọn câu hỏi khác
+        panelLeft.setBackground(Color.lightGray);
         panelLeft.setLayout(new FlowLayout(FlowLayout.LEADING));
         JLabel t = new JLabel("Chọn xem các câu hỏi khác: ");
         t.setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -154,19 +153,23 @@ public class MainForm extends JFrame implements ActionListener {
             btnSelectQuestion.get(i).setFont(new Font("TimesRoman", Font.PLAIN, 12));
             panelLeft.add(btnSelectQuestion.get(i));
         }
+        // Kết thúc giao diện
+        // Giao diện nộp bài
         panelBottomRight.setLayout(new FlowLayout(FlowLayout.CENTER));
         btnNext.setText("Nộp bài");
         btnNext.setFont(new Font("TimesRoman", Font.BOLD, 12));
         panelBottomRight.add(btnNext);
-        JLabel t1 = new JLabel("Thời gian còn lại:");
-        t1.setFont(new Font("TimesRoman", Font.BOLD, 20));
+        // Kết thúc giao diện
+        // Giao diện tính thời gian
+        JLabel lb = new JLabel("Thời gian còn lại:");
+        lb.setFont(new Font("TimesRoman", Font.BOLD, 20));
         lbTime.setFont(new Font("TimesRoman", Font.BOLD, 20));
-        panelBottomLeft.add(t1);
+        panelBottomLeft.add(lb);
         panelBottomLeft.add(lbTime);
+        // Kết thúc giao diện
 
 
         add(panelLeft);
-//        add(panelRight);
         add(panelBottomLeft);
         add(panelBottomRight);
         setBounds(400, 150, 600, 400);
@@ -206,14 +209,14 @@ public class MainForm extends JFrame implements ActionListener {
 
     private void countMark() {
         int countMark = 0;
-        for(int i = 0; i < examQuestions.size(); i++){
+        for (int i = 0; i < examQuestions.size(); i++) {
             String t = "";
-            for(int j = 0; j < rbtnAnswerQuestion.size(); j++){
-                if(rbtnAnswerQuestion.get(i)[j].isSelected()){
+            for (int j = 0; j < rbtnAnswerQuestion.size(); j++) {
+                if (rbtnAnswerQuestion.get(i)[j].isSelected()) {
                     t = rbtnAnswerQuestion.get(i)[j].getText();
                 }
             }
-            if(examQuestions.get(i).get(5).equals(t)) countMark++;
+            if (examQuestions.get(i).get(5).equals(t)) countMark++;
         }
         JOptionPane.showMessageDialog(this, "Bạn đã hoàn thành " + countMark + "/10");
         try {
@@ -224,9 +227,10 @@ public class MainForm extends JFrame implements ActionListener {
         setVisible(false);
         System.exit(0);
     }
-    private void requestClose(){
+
+    private void requestClose() {
         int c = JOptionPane.showConfirmDialog(this, "Xác nhận để thoát bài thi?");
-        if(c == JOptionPane.YES_OPTION){
+        if (c == JOptionPane.YES_OPTION) {
             countMark();
         }
 

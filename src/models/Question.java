@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class Question {
     ArrayList<ArrayList<String>> examQuestions;
-    public Question () {
+
+    public Question() {
         examQuestions = new ArrayList<>();
         createQuestion();
     }
+
     /*
-    * Question:
-    *
-    * */
-    public void createQuestion(){
+     * Question:
+     *
+     * */
+    public void createQuestion() {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Nam ........... swimming twice a week.");
         arrayList.add("is going often");
